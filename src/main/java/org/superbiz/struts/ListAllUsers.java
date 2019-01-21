@@ -17,6 +17,9 @@
  */
 package org.superbiz.struts;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import java.util.List;
@@ -27,6 +30,13 @@ public class ListAllUsers {
     private int id;
     private String errorMessage;
     private List<User> users;
+
+    @Autowired
+    private UserService userService;
+
+    public  ListAllUsers(UserService userService){
+        this.userService = userService;
+    }
 
     public List<User> getUsers() {
         return users;
@@ -52,6 +62,7 @@ public class ListAllUsers {
         this.id = id;
     }
 
+    @Transactional
     public String execute() {
 
         try {
